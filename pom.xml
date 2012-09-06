@@ -30,13 +30,25 @@
     <dependency>
       <groupId>org.bukkit</groupId>
       <artifactId>bukkit</artifactId>
-      <version>1.2.4-R0.1-SNAPSHOT</version>
+      <version>1.3.1-R2.0</version>
+      <type>jar</type>
     </dependency>
     
     <dependency>
       <groupId>com.sk89q</groupId>
       <artifactId>worldedit</artifactId>
-      <version>5.3-SNAPSHOT</version>
+      <version>5.4</version>
+      <exclusions>
+        <exclusion>
+          <artifactId>vanilla</artifactId>
+          <groupId>org.spout</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>truezip</artifactId>
+          <groupId>de.schlichtherle</groupId>
+        </exclusion>
+      </exclusions>
+      <type>jar</type>
     </dependency>
     
     <dependency>
@@ -51,6 +63,11 @@
       <version>1.2.13</version>
       <scope>system</scope>
       <systemPath>${basedir}/lib/Vault.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>com.nijikokun.bukkit</groupId>
+      <artifactId>Permissions</artifactId>
+      <version>3.1.6</version>
     </dependency>
   </dependencies>
   

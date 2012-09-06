@@ -6,7 +6,13 @@ import java.util.List;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.block.BrewingStand;
+import org.bukkit.block.Chest;
+import org.bukkit.block.Dispenser;
+import org.bukkit.block.DoubleChest;
+import org.bukkit.block.Furnace;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 
 import uk.co.oliwali.HawkEye.database.DataManager;
@@ -37,7 +43,7 @@ public class ContainerAccessManager {
 		if (access == null) return;
 
 		//Get current inventory, create diff string and add the database
-		HashMap<String,Integer> after = InventoryUtil.compressInventory(InventoryUtil.getContainerContents(access.container));
+		HashMap<String,Integer> after = InventoryUtil.compressInventory(access.container.getInventory().getContents());
 		String diff = InventoryUtil.createDifferenceString(access.beforeInv, after);
 		if (diff.length() > 1) DataManager.addEntry(new ContainerEntry(player, access.loc, diff));
 		accessList.remove(access);
@@ -53,6 +59,26 @@ public class ContainerAccessManager {
 		if (!(block.getState() instanceof InventoryHolder)) return;
 		InventoryHolder container = (InventoryHolder) block.getState();
 		accessList.add(new ContainerAccess(container, player, InventoryUtil.compressInventory(InventoryUtil.getContainerContents(container)), block.getLocation()));
+	}
+        
+        public void checkInventoryOpen(Player player, Inventory inventory) {
+		InventoryHolder container = inventory.getHolder();
+                Location loc = null;
+                
+                if (container instanceof Chest) 
+                    loc = ((Chest)container).getLocation();
+                else if (container instanceof Furnace) 
+                    loc = ((Furnace)container).getLocation();
+                else if (container instanceof BrewingStand) 
+                    loc = ((BrewingStand)container).getLocation();
+                else if (container instanceof Dispenser) 
+                    loc = ((Dispenser)container).getLocation();
+                else if (container instanceof DoubleChest) 
+                    loc = ((DoubleChest)container).getLocation();
+                else {//System.out.println("Opened another??"+container);
+                    return;}
+                
+		accessList.add(new ContainerAccess(container, player, InventoryUtil.compressInventory(InventoryUtil.getContainerContents(container)), loc));
 	}
 
 	/**
