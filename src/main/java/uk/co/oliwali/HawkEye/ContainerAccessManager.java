@@ -53,14 +53,8 @@ public class ContainerAccessManager {
 	/**
 	 * 'Sets' the player inventory to be open and stores the current contents of the container
 	 * @param player player to check
-	 * @param block container to store
+	 * @param inventory container to store
 	 */
-	public void checkInventoryOpen(Player player, Block block) {
-		if (!(block.getState() instanceof InventoryHolder)) return;
-		InventoryHolder container = (InventoryHolder) block.getState();
-		accessList.add(new ContainerAccess(container, player, InventoryUtil.compressInventory(InventoryUtil.getContainerContents(container)), block.getLocation()));
-	}
-        
         public void checkInventoryOpen(Player player, Inventory inventory) {
 		InventoryHolder container = inventory.getHolder();
                 Location loc = null;
@@ -78,7 +72,7 @@ public class ContainerAccessManager {
                 else {//System.out.println("Opened another??"+container);
                     return;}
                 
-		accessList.add(new ContainerAccess(container, player, InventoryUtil.compressInventory(InventoryUtil.getContainerContents(container)), loc));
+		accessList.add(new ContainerAccess(container, player, InventoryUtil.compressInventory(container.getInventory().getContents()), loc));
 	}
 
 	/**

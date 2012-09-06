@@ -118,6 +118,8 @@ public class InventoryUtil {
 
 	}
 
+// Sometimes function getContainerContents creates duble item count, so rolled back to use bukkit inventories
+        
 	/**
 	 * Method for getting complete inventory from a ContainerBlock
 	 * Works around a bug in Minecraft that sometimes returns only half the chest
@@ -126,7 +128,7 @@ public class InventoryUtil {
 	 * @return ItemStack[] of both inventories merged
 	 * @author N3X15
 	 */
-    public static ItemStack[] getContainerContents(InventoryHolder container) {
+    /*public static ItemStack[] getContainerContents(InventoryHolder container) {
 
     	//If it isn't a chest, there is no issue!
     	if (!(container instanceof Chest)) return container.getInventory().getContents();
@@ -178,6 +180,6 @@ public class InventoryUtil {
             return result;
         }
 
-    }
+    }*/
 
 }

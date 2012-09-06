@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -14,8 +15,6 @@ import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
-import uk.co.oliwali.HawkEye.ContainerAccessManager;
-
 import uk.co.oliwali.HawkEye.DataType;
 import uk.co.oliwali.HawkEye.HawkEvent;
 import uk.co.oliwali.HawkEye.HawkEye;
@@ -108,8 +107,6 @@ public class MonitorPlayerListener extends HawkEyeListener {
 				case DISPENSER:
 				case CHEST:
 					if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-						//Call container manager for inventory open
-						//HawkEye.containerManager.checkInventoryOpen(player, block);
 						DataManager.addEntry(new DataEntry(player, DataType.OPEN_CONTAINER, loc, Integer.toString(block.getTypeId())));
 					}
 					break;
@@ -169,13 +166,20 @@ public class MonitorPlayerListener extends HawkEyeListener {
 		DataManager.addEntry(new DataEntry(player, DataType.ITEM_PICKUP, player.getLocation(), data));
 	}
 
-        @HawkEvent(dataType = DataType.OPEN_CONTAINER)
+        @HawkEvent(dataType = DataType.CONTAINER_TRANSACTION)
         public void onPlayerOpenInventory(InventoryOpenEvent event) {
             if (event.isCancelled()) return;
             
             if (event.getPlayer() instanceof Player) {
                 //System.out.println("Opened container");
                 HawkEye.containerManager.checkInventoryOpen((Player)event.getPlayer(), event.getInventory());
+            }
+        }
+        
+        @HawkEvent(dataType = DataType.CONTAINER_TRANSACTION)
+        public void onPlayerCloseInventory(InventoryCloseEvent event) {
+            if (event.getPlayer() instanceof Player) {
+                HawkEye.containerManager.checkInventoryClose((Player)event.getPlayer());
             }
         }
 }
