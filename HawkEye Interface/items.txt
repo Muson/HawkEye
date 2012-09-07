@@ -123,6 +123,18 @@
 122,Dragon Egg
 123,Redstone Lamp (off)
 124,Redstone Lamp (on)
+125,Wooden Double Slab
+126,Wooden Slab
+127,Cocoa Plant
+128,Sandstone Stairs
+129,Emerald Ore
+130,Ender Chest
+131,Tripwire Hook
+132,Tripwire
+133,Block of Emerald
+134,Spruce Wood Stairs
+135,Birch Wood Stairs
+136,Jungle Wood Stairs
 256,Iron Shovel
 257,Iron Pickaxe
 258,Iron Axe
@@ -253,6 +265,9 @@
 383,Spawn Egg
 384,Bottle of Enchanting
 385,Fire Charge
+386,Book and Quill
+387,Written Book
+388,Emerald
 2256,Disc (13)
 2257,Disc (Cat)
 2258,Disc (blocks)
