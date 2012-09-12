@@ -17,7 +17,6 @@ import uk.co.oliwali.HawkEye.HawkEye;
  */
 public class Permission {
 
-    private final HawkEye plugin;
     private static PermissionPlugin handler = PermissionPlugin.BUKKITPERMS;
     private static net.milkbowl.vault.permission.Permission vaultPermissions;
 //	private static PermissionHandler permissionPlugin;
@@ -29,7 +28,6 @@ public class Permission {
      * @param instance
      */
     public Permission(HawkEye instance) {
-        plugin = instance;
         PluginManager pm = Bukkit.getServer().getPluginManager();
 
         if (pm.isPluginEnabled("Vault")) {
@@ -221,7 +219,6 @@ public class Permission {
 
         VAULT,
         PERMISSIONSEX,
-        PERMISSIONS,
         BUKKITPERMS
     }
 }
