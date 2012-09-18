@@ -19,6 +19,7 @@ import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import uk.co.oliwali.HawkEye.commands.BaseCommand;
+import uk.co.oliwali.HawkEye.commands.DebugCommand;
 import uk.co.oliwali.HawkEye.commands.DeleteCommand;
 import uk.co.oliwali.HawkEye.commands.HelpCommand;
 import uk.co.oliwali.HawkEye.commands.HereCommand;
@@ -34,6 +35,7 @@ import uk.co.oliwali.HawkEye.commands.ToolCommand;
 import uk.co.oliwali.HawkEye.commands.ToolResetCommand;
 import uk.co.oliwali.HawkEye.commands.TptoCommand;
 import uk.co.oliwali.HawkEye.commands.UndoCommand;
+import uk.co.oliwali.HawkEye.commands.WorldEditRollbackCommand;
 import uk.co.oliwali.HawkEye.database.DataManager;
 import uk.co.oliwali.HawkEye.listeners.MonitorBlockListener;
 import uk.co.oliwali.HawkEye.listeners.MonitorEntityListener;
@@ -232,11 +234,12 @@ public class HawkEye extends JavaPlugin {
         commands.add(new PreviewCancelCommand());
         commands.add(new PreviewCommand());
         commands.add(new RollbackCommand());
-        // if (worldEdit != null) commands.add(new WorldEditRollbackCommand());
+        if (worldEdit != null) commands.add(new WorldEditRollbackCommand());
         commands.add(new UndoCommand());
         commands.add(new RebuildCommand());
         commands.add(new DeleteCommand());
-
+        commands.add(new DebugCommand());
+                
 	}
 
 	/**

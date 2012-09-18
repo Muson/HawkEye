@@ -2,14 +2,12 @@ package uk.co.oliwali.HawkEye.entry;
 
 import java.util.HashMap;
 import java.util.List;
-
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
-
 import uk.co.oliwali.HawkEye.DataType;
 import uk.co.oliwali.HawkEye.util.InventoryUtil;
 
@@ -37,7 +35,8 @@ public class ContainerEntry extends DataEntry {
 
 	@Override
 	public boolean rollback(Block block) {
-		if (!(block instanceof InventoryHolder)) return false;
+		if (!(block.getState() instanceof InventoryHolder)) return false;
+
 		Inventory inv = ((InventoryHolder) block.getState()).getInventory();
 		List<HashMap<String,Integer>> ops = InventoryUtil.interpretDifferenceString(data);
 		//Handle the additions
@@ -55,7 +54,7 @@ public class ContainerEntry extends DataEntry {
 
 	@Override
 	public boolean rebuild(Block block) {
-		if (!(block instanceof InventoryHolder)) return false;
+		if (!(block.getState() instanceof InventoryHolder)) return false;
 		Inventory inv = ((InventoryHolder) block.getState()).getInventory();
 		List<HashMap<String,Integer>> ops = InventoryUtil.interpretDifferenceString(data);
 		//Handle the additions

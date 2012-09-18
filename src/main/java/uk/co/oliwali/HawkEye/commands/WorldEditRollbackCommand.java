@@ -12,11 +12,7 @@ import uk.co.oliwali.HawkEye.database.SearchQuery.SearchDir;
 import uk.co.oliwali.HawkEye.util.Permission;
 import uk.co.oliwali.HawkEye.util.Util;
 
-import com.sk89q.worldedit.IncompleteRegionException;
-import com.sk89q.worldedit.LocalPlayer;
-import com.sk89q.worldedit.LocalWorld;
-import com.sk89q.worldedit.bukkit.BukkitPlayer;
-import com.sk89q.worldedit.regions.Region;
+import com.sk89q.worldedit.bukkit.selections.Selection;
 
 /**
  * Rolls back actions inside a WorldEdit selection according to the player's specified input.
@@ -46,17 +42,12 @@ public class WorldEditRollbackCommand extends BaseCommand {
 			return true;
 		}
 
-		//Check if the WorldEdit selection is complete
-		Region region = null;
-		try {
-			LocalPlayer lp = new BukkitPlayer(HawkEye.worldEdit, HawkEye.worldEdit.getWorldEdit().getServer(), player);
-			LocalWorld lw = lp.getWorld();
-			region = HawkEye.worldEdit.getWorldEdit().getSession(lp).getSelection(lw);
-		} catch (IncompleteRegionException e) {
-			Util.sendMessage(sender, "&cPlease complete your selection before doing a &7WorldEdit&c rollback!");
-			return true;
-		}
-
+                Selection selection = HawkEye.worldEdit.getSelection(player);
+                if (selection == null) {
+                    Util.sendMessage(sender, "&cPlease complete your selection before doing a &7WorldEdit&c rollback!");
+                    return true;
+                }
+                
 		//Parse arguments
 		SearchParser parser = null;
 		try {
@@ -80,8 +71,8 @@ public class WorldEditRollbackCommand extends BaseCommand {
 		}
 
 		//Set WorldEdit locations
-		parser.minLoc = new Vector(region.getMinimumPoint().getX(), region.getMinimumPoint().getY(), region.getMinimumPoint().getZ());
-		parser.maxLoc = new Vector(region.getMaximumPoint().getX(), region.getMaximumPoint().getY(), region.getMaximumPoint().getZ());
+		parser.minLoc = new Vector(selection.getMinimumPoint().getX(), selection.getMinimumPoint().getY(), selection.getMinimumPoint().getZ());
+		parser.maxLoc = new Vector(selection.getMaximumPoint().getX(), selection.getMaximumPoint().getY(), selection.getMaximumPoint().getZ());
 
 		//Create new SearchQuery with data
 		new SearchQuery(new RollbackCallback(session, RollbackType.GLOBAL), parser, SearchDir.DESC);

@@ -79,9 +79,9 @@ public class Rollback implements Runnable {
 			Location loc = new Location(world, entry.getX(), entry.getY(), entry.getZ());
 			Block block = world.getBlockAt(loc);
 			BlockState state = block.getState();
-
+                        
 			//Attempt global rollback
-			if (rollbackType == RollbackType.GLOBAL && entry.rollback(world.getBlockAt(loc))) {
+			if (rollbackType == RollbackType.GLOBAL && entry.rollback(block)) {
 				entry.setUndoState(state);
 				undo.add(entry);
 			}

@@ -82,6 +82,12 @@ public class ContainerAccessManager {
             Util.debug("Opened unknown container " + container);
             return;
         }
+        
+        // Check block coordinates for container
+        // Must be done for double chests
+        loc.setX(loc.getBlockX());
+        loc.setY(loc.getBlockY());
+        loc.setZ(loc.getBlockZ());
 
         accessList.add(new ContainerAccess(container, player, InventoryUtil.compressInventory(container.getInventory().getContents()), loc));
     }

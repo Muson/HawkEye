@@ -187,6 +187,16 @@ public class Permission {
     public static boolean delete(CommandSender player) {
         return hasPermission(player, "hawkeye.delete");
     }
+    
+    /**
+     * Permission to toggle debug mode
+     * 
+     * @param player
+     * @return 
+     */
+    public static boolean debug(CommandSender player) {
+        return hasPermission(player, "hawkeye.debug");
+    }
 
     /**
      * Check if a player is in a group
